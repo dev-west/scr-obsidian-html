@@ -1,0 +1,5 @@
+# ignore nano swap files
+*.swp
+
+# ignore output files
+*.out

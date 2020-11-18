@@ -1,0 +1,23 @@
+# Script Defaults
+## Local source from which to pull obsidian.md files
+locSrc="."
+
+## Local destination to which output HTML will be pushed
+locDes="./html"
+
+## Local folder to search for external resources referenced in .md
+locRes="."
+
+## Relative folder to search for external resources referenced via the location of the .md in which the reference is found
+relRes="./Images"
+
+## Clear Generated Resources
+rm md-flist.out
+
+# obsidian-html Execution
+## Collect List of Folders
+find $locSrc -name "*.md" -execdir realpath --relative-to=$locSrc {} >> md-flist.out \;
+
+## Generate Output Folders
+## Search for Referenced External Resources
+## Generate obsidian-html Commands
