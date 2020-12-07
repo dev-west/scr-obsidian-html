@@ -1,23 +1,102 @@
+clear
+
 # Script Defaults
 ## Local source from which to pull obsidian.md files
-locSrc="."
+SRC="."
 
 ## Local destination to which output HTML will be pushed
-locDes="./html"
+DEST="./html"
 
 ## Local folder to search for external resources referenced in .md
-locRes="."
+RESOURCE="."
 
 ## Relative folder to search for external resources referenced via the location of the .md in which the reference is found
-relRes="./Images"
+RELRESOURCE="./Images"
+
+## Resource file types to include
+TYPE=( "*.png" "*.jpg" "*.gif" "*.pdf" )
+
+# Buffer files
+MDFOLS="md-flist.out"
+MDRELFOLS="md-rlist.out"
+MDUNIQFOLS="md-ulist.out"
+
+# Parameters
+## 1st locSrc Replacement
+if [ $# -ne 0 ]; then
+
+  echo Found arguments.
+
+  if [ -n "$1" ]; then
+    SRC="$1"
+    echo "  Using source folder: $SRC"
+  fi
+
+  if [ -n "$2" ]; then
+    DEST="$2"
+    echo "  Using desination folder: $DEST"
+  fi
+
+  if [ -d $DEST ]; then
+    rm -R $DEST/*
+    rmdir $DEST
+  fi
+
+fi
 
 ## Clear Generated Resources
-rm md-flist.out
+if [ -f "$MDFOLS" ]; then
+  echo Removing prior $MDFOLS
+  rm $MDFOLS
+fi
+if [ -f "$MDRELFOLS" ]; then
+  echo Removing prior $MDRELFOLS
+  rm $MDRELFOLS
+fi
+if [ -f "$MDUNIQFOLS" ]; then
+  echo Removing prior $MDUNIQFOLS
+  rm $MDUNIQFOLS
+fi
+
+# Generate destination folder if it doesn't exist
+if [ ! -d "$DEST" ]; then
+  mkdir -p "$DEST"
+fi
 
 # obsidian-html Execution
 ## Collect List of Folders
-find $locSrc -name "*.md" -execdir realpath --relative-to=$locSrc {} >> md-flist.out \;
+for tp in "${TYPE[@]}"; do
+  find $SRC -name $tp -execdir pwd >> $MDFOLS \;
+done
+
+find $SRC -name "*.md" -execdir pwd >> $MDFOLS \;
+echo Found $(wc -l < $MDFOLS) folders.
+
+while read fn; do
+  realpath "$fn" --relative-to="$SRC" >> $MDRELFOLS
+done < "$MDFOLS"
+
+sort -u $MDRELFOLS > $MDUNIQFOLS
+echo Found $(wc -l < $MDUNIQFOLS) unique folders.
 
 ## Generate Output Folders
+while read fn; do
+  mkdir -p "$DEST/$fn"
+done < $MDUNIQFOLS
+
 ## Search for Referenced External Resources
+
+## Copy external resource files
+for tp in "${TYPE[@]}"; do
+  while read fn; do
+    fntpCount=`ls -1 $SRC/$fn/$tp 2>/dev/null | wc -l`
+    if [ $fntpCount != 0 ]; then
+      cp $SRC/$fn/$tp $DEST/$fn
+    fi
+  done < $MDUNIQFOLS
+done
+
 ## Generate obsidian-html Commands
+while read fn; do
+  obsidian-html "$SRC/$fn" -o "$DEST/$fn"
+done < $MDUNIQFOLS
