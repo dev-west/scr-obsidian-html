@@ -10,6 +10,9 @@ DEST="./html"
 ## Local folder to search for external resources referenced in .md
 RESOURCE="."
 
+## Local template for output HTML
+TEM=""
+
 ## Relative folder to search for external resources referenced via the location of the .md in which the reference is found
 RELRESOURCE="./Images"
 
@@ -35,6 +38,11 @@ if [ $# -ne 0 ]; then
   if [ -n "$2" ]; then
     DEST="$2"
     echo "  Using desination folder: $DEST"
+  fi
+
+  if [ -n "$3" ]; then
+    TEM="$3"
+    echo "  Using template: $TEM"
   fi
 
   if [ -d $DEST ]; then
@@ -80,9 +88,10 @@ sort -u $MDRELFOLS > $MDUNIQFOLS
 echo Found $(wc -l < $MDUNIQFOLS) unique folders.
 
 ## Generate Output Folders
-while read fn; do
-  mkdir -p "$DEST/$fn"
-done < $MDUNIQFOLS
+mkdir -p "$DEST/Assets"
+# while read fn; do
+#   mkdir -p "$DEST/$fn"
+# done < $MDUNIQFOLS
 
 ## Search for Referenced External Resources
 
@@ -91,12 +100,23 @@ for tp in "${TYPE[@]}"; do
   while read fn; do
     fntpCount=`ls -1 $SRC/$fn/$tp 2>/dev/null | wc -l`
     if [ $fntpCount != 0 ]; then
-      cp $SRC/$fn/$tp $DEST/$fn
+#      cp $SRC/$fn/$tp $DEST/$fn
+      cp $SRC/$fn/$tp $DEST/Assets
     fi
   done < $MDUNIQFOLS
 done
 
 ## Generate obsidian-html Commands
 while read fn; do
-  obsidian-html "$SRC/$fn" -o "$DEST/$fn"
+  if [ $TEM != "" ]; then
+#    echo "    Processing $SRC/$fn -o $DEST/$fn -t $TEM ."
+#    obsidian-html "$SRC/$fn" -o "$DEST/$fn" -t "$TEM"
+    echo "    Processing $SRC/$fn -o $DEST -t $TEM ."
+    obsidian-html "$SRC/$fn" -o "$DEST" -t "$TEM"
+  else
+#    echo "    Processing $SRC/$fn -o $DEST/$fn ."
+#    obsidian-html "$SRC/$fn" -o "$DEST/$fn"
+    echo "    Processing $SRC/$fn -o $DEST ."
+    obsidian-html "$SRC/$fn" -o "$DEST"
+  fi
 done < $MDUNIQFOLS
