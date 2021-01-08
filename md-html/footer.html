@@ -1,0 +1,69 @@
+    </div><!--content-->
+  </div><!--row-->
+
+</div><!--page-->
+
+<div class="footer"><h5>See github.com/dev-west for license.</h5></div>
+
+<script>
+
+  function hisBack() { history.back(); }
+  function hisFore() { history.forward(); }
+
+  window.onscroll = function() { doScroll() };
+
+  function doScroll() {
+    let btnTop = document.getElementById("divTop");
+    if (document.body.scrollTop > 400 || document.documentElement.scrollTop > 400) {
+      btnTop.style.display = "block"; }
+    else {
+      btnTop.style.display = "none"; } }
+
+  function toTop() {
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0; }
+
+  let a = document.querySelectorAll("a");
+  for(let i = 0; i < a.length; i++) {
+    let extFound = a[i].href.search(".html");
+    lPipe = a[i].innerHTML.search("\\|");
+    if(lPipe != -1) a[i].innerHTML = a[i].innerHTML.substr(lPipe + 1);
+    lOct = a[i].href.search("#");
+    if((lOct == -1) && (a[i].href.substr(a[i].href.length-1) != "/") && (extFound == -1)) a[i].href = a[i].href + ".html";
+    else {
+      if(extFound == -1) a[i].href = a[i].href.replace("#",".html#");
+      if(lPipe != -1) {
+        lOct = a[i].href.search("#");
+        a[i].href = a[i].href.substr(0, a[i].href.length - (a[i].href.length - lOct)/2); } } }
+
+  // fix image src
+  let img = document.querySelectorAll("img");
+  for(let i = 0; i < img.length; i++) {
+    img[i].src = "Assets/" + img[i].alt + "?t=" + new Date().getTime();
+    img[i].classList.add("image");
+  }
+
+  // generate TOC
+  let h = document.querySelectorAll("h1, h2, h3, h4, h5, h6, h7, h8, h9");
+  for(let i = 0; i < h.length - 1; i++) {
+    let par = document.getElementById("toc");
+    nDiv = document.createElement("div");
+    nDiv.classList.add("minicard");
+    aDiv = document.createElement("a");
+    aDiv.href = "#" + h[i].innerHTML.replace(' ','-').toLowerCase();
+    let strOffset = "";
+    let aDivText = document.createTextNode(strOffset + " " + h[i].innerHTML);
+
+    let off = h[i].nodeName.substr(1);
+    console.log(i, h[i], h.length);
+    nDiv.style.marginLeft = (20 * (off - 1)) + "px";
+
+    aDiv.appendChild(aDivText);
+    nDiv.appendChild(aDiv);
+    par.appendChild(nDiv); }
+
+  if(h.length <= 2) document.getElementById("toc").style.display = "none";
+
+</script>
+
+</body></html>
