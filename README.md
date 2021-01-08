@@ -1,5 +1,5 @@
 # scr-obsidian-html
-Front-end script to publish obsidian to an HTML target. Retains folder structure of original source.
+Front-end script to publish obsidian to an HTML target. Renders into flat folder structure due to obsidian-html link presumption.
 
 # Installation
 Requires the following:
@@ -17,3 +17,5 @@ Edit the script to change the base obsidian folder, the target HTML folder, and 
 
 Note--resources referenced by the `![[ ]]` syntax should be in a folder below the .md that references it. If it's not found there, the script will move then to the base folder and begin crawling folders there looking for a file of the same name. There is an option in the script for another default resource location.
 
+# Future
+I'd like that the output be rendered into the same folder structure as the source, but this will require either addressing obsidian-html's output a href links after the fact, or modifying the source py code. Will be investigated in future.
