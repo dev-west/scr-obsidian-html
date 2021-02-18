@@ -1,3 +1,6 @@
+# Project Deprecated
+obsidiant-html has been migrated to a new package by its auther for broader .md support and includes new features that overlaps with parts of this script. I recommend that you evaluate that author's new project instead of this script: https://github.com/kmaasrud/oboe. No further updates to this script are expected.
+
 # scr-obsidian-html
 Front-end script to publish obsidian to an HTML target. Renders into flat folder structure due to obsidian-html link presumption.
 
