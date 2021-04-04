@@ -2,15 +2,20 @@ body {
   color: white;
   font-family: 'Raleway';
   padding: 20px;
-  background: black;
+  background: #111;
 }
 
 a:link { color: lime; }
-a:visited { color: orange; }
+a:visited { color: green; }
 
 pre {
+  border-radius: 5px;
+  border-top-color: #333;
+  border-top-style: solid;
+  border-bottom-color: #333;
+  border-bottom-style: solid;
   color: #C44;
-  background: #111;
+  background: #222;
   font-family: Consolas;
   white-space: pre-wrap;
   overflow-wrap: anywhere;
@@ -21,36 +26,40 @@ pre {
 code {
   font-size: 0.9rem;
   color: #C44;
+  background: #222;
   font-family: Consolas;
   padding-left: 4px;
   padding-right: 4px;
 }
 
 blockquote {
+  border-radius: 5px;
+  border-left-color: #333;
+  border-left-style: solid;
+  border-right-color: #333;
+  border-right-style: solid;
   color: #AAA;
-  background: #111;
+  background: #222;
   font-family: Consolas;
   white-space: pre-wrap;
   overflow-wrap: anywhere;
   padding: 10px;
-  padding-bottom: 25px;
+}
+
+th, td {
+  width: 5%;
+  border: 1px solid #222;
+  padding: 4px;
 }
 
 .tag {
   color: #88F;
   font-weight: bold;
   background-color: #228;
-  padding: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
   margin-left: 5px;
   margin-right: 5px;
-}
-
-.page {
-  background: #000;
-  padding: 20px;
-  width: 1100px;
-  height: 100%;
-  margin: auto;
 }
 
 .fBtn {
@@ -68,73 +77,130 @@ blockquote {
   box-shadow: inset 0px 0px 5px 0px #666;
 }
 
+
+/* page */
+.page {
+  border-top-color: #333;
+  border-top-style: solid;
+  border-right-color: #333;
+  border-right-style: solid;
+  border-left-color: #333;
+  border-left-style: solid;
+  border-radius: 10px;
+
+  background: #111;
+  padding: 20px;
+  width: 1100px;
+  height: 100%;
+  margin: auto;
+}
+
+/* header */
 .header {
   font-family: 'Pathway Gothic One';
-  background: #000;
-  margin: auto;
+  font-weight: bold;
+  background: #111;
   padding: 10px;
-  font-size: 40px;
-  text-align: center;
+  font-size: 2.5em;
+  text-align: left;
+  line-height: 50px;
 }
 
-.leftcolumn {
+/* navbar */
+.navbar {
+  font-family: 'Raleway";
+  float: none;
+}
+
+.navbar ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar li a {
+  text-decoration: none;
+  top: 50%;
   float: left;
-  width: 20%;
+  font-weight: bold;
+  display: inline-block;
+  margin-right: 1.5em;
+  font-size: 1.0em;
 }
 
-.rightcolumn {
-  float: left;
-  width: 77%;
-  padding-left: 20px;
+.navbar li a:link {
+  color: lime;
+}
+.navbar li a:hover {
+  color: #888;
 }
 
-.card {
-  background-color: #222;
-  padding: 10px;
-  margin-top: 20px;
-  overflow: hidden;
-}
+/* two unequal columns that float next to each other */
 
-.minicard {
-  font-size: 0.8rem;
-  background-color: #111;
-  padding: 5px;
-  margin-top: 5px;
-  margin-right: 5px;
-  margin-left: 5px;
-  margin-bottom: 5px;
-  overflow: hidden;
-}
+  /* left column */
+  .leftcolumn {
+    float: right;
+    width: 73%;
+  }
 
+  /* right column */
+  .rightcolumn {
+    float:right;
+    width:25%;
+    padding-left: 20px;
+  }
+
+/* images */
 .image {
-  background-color: #333;
-  padding: 10px;
-  max-width: 827px;
+  background-color: #fff;
+  width: 95%;
+  padding: 20px;
 }
 
-.content {
-  background-color: #333;
+/* card effect */
+.card {
+  border-top-color: #333;
+  border-top-style: solid;
+  border-radius: 10px;
+  background-color: #111;
   padding: 20px;
   margin-top: 20px;
   overflow: hidden;
 }
 
+.minicard {
+  background-color: #111;
+  padding-left: 10px;
+  padding-right: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  text-alighn: center;
+  float: left;
+  width: 100%;
+}
+
+/* remove formatting after cards */
 .row:after {
   content: "";
   display: table;
   clear: both;
 }
 
+/* footer */
 .footer {
   padding: 20px;
+  background-color: #111;
   text-align: center;
-  background: black;
   margin-top: 20px;
 }
 
+/* responsive */
 @media screen and (max-width: 1200px) {
-  .page { width: 100%; }
-  .leftcolumn, .rightcolumn { width: 100%; padding: 0px; }
-  .content { text-align: center; }
-  .image { max-width: 2500px; }
+  .page { width: 90%; }
+  .leftcolumn, .rightcolumn {
+    width: 100%;
+    padding: 0px;
+  }
 }

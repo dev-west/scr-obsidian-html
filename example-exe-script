@@ -1,3 +1,2 @@
 ~/scr-obsidian-html/scr-obsidian-html ~/INPUT ~/OUTPUT ~/template.html
 sudo cp -R ~/OUTPUT/* /var/www/html/md
-

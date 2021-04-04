@@ -112,11 +112,13 @@ while read fn; do
 #    echo "    Processing $SRC/$fn -o $DEST/$fn -t $TEM ."
 #    obsidian-html "$SRC/$fn" -o "$DEST/$fn" -t "$TEM"
     echo "    Processing $SRC/$fn -o $DEST -t $TEM ."
-    obsidian-html "$SRC/$fn" -o "$DEST" -t "$TEM"
+    ~/.local/bin/oboe "$SRC/$fn" -e -o "$DEST" -t "$TEM"
+    # obsidian-html "$SRC/$fn" -o "$DEST" -t "$TEM"
   else
 #    echo "    Processing $SRC/$fn -o $DEST/$fn ."
 #    obsidian-html "$SRC/$fn" -o "$DEST/$fn"
     echo "    Processing $SRC/$fn -o $DEST ."
-    obsidian-html "$SRC/$fn" -o "$DEST"
+    ~/.local/bin/oboe "$SRC/$fn" -e -o "$DEST"
+    # obsidian-html "$SRC/$fn" -o "$DEST"
   fi
 done < $MDUNIQFOLS

@@ -1,9 +1,11 @@
+        </div><!--card-->
+      </div><!--leftcolumn-->
     </div><!--content-->
   </div><!--row-->
 
 </div><!--page-->
 
-<div class="footer"><h5>See github.com/dev-west for license.</h5></div>
+<div class="footer"><h5>Copyright 2020-2021 west.dev</h5></div>
 
 <script>
 
@@ -23,17 +25,27 @@
     document.body.scrollTop = 0;
     document.documentElement.scrollTop = 0; }
 
+  // trim block quote to reduce excess apparent padding
+  let bq = document.getElementsByTagName("blockquote")
+  if(bq.length != 0) {
+    for(let i = 0; i < bq.length; i++) {
+      bq[i].innerHTML = bq[i].innerHTML.trim(); } }
+
+  // update page title to first <h1>
+  if(document.getElementsByTagName("h1").length != 0) {
+    let h1 = document.getElementsByTagName("h1")[0].innerHTML;
+    document.title = "</" + h1 + ">"; }
+
+  // fix obsidian "link#anchor|label" to "<a href=link.html#anchor>label</a>"
   let a = document.querySelectorAll("a");
   for(let i = 0; i < a.length; i++) {
     let extFound = a[i].href.search(".html");
     lPipe = a[i].innerHTML.search("\\|");
     if(lPipe != -1) a[i].innerHTML = a[i].innerHTML.substr(lPipe + 1);
     lOct = a[i].href.search("#");
-    if((lOct == -1) && (a[i].href.substr(a[i].href.length-1) != "/") && (extFound == -1)) a[i].href = a[i].href + ".html";
-    else {
-      if(extFound == -1) a[i].href = a[i].href.replace("#",".html#");
+    if(lOct != -1) {
       if(lPipe != -1) {
-        lOct = a[i].href.search("#");
+        lOct = a[i].href.search("#") + 1;
         a[i].href = a[i].href.substr(0, a[i].href.length - (a[i].href.length - lOct)/2); } } }
 
   // fix image src
@@ -44,8 +56,8 @@
   }
 
   // generate TOC
-  let h = document.querySelectorAll("h1, h2, h3, h4, h5, h6, h7, h8, h9");
-  for(let i = 0; i < h.length - 1; i++) {
+  let h = document.querySelectorAll("h1, h2, h3");
+  for(let i = 0; i < h.length; i++) {
     let par = document.getElementById("toc");
     nDiv = document.createElement("div");
     nDiv.classList.add("minicard");
@@ -55,14 +67,16 @@
     let aDivText = document.createTextNode(strOffset + " " + h[i].innerHTML);
 
     let off = h[i].nodeName.substr(1);
-    console.log(i, h[i], h.length);
+    // console.log(i, h[i], h.length);
     nDiv.style.marginLeft = (20 * (off - 1)) + "px";
 
     aDiv.appendChild(aDivText);
     nDiv.appendChild(aDiv);
     par.appendChild(nDiv); }
 
-  if(h.length <= 2) document.getElementById("toc").style.display = "none";
+  if(h.length <= 2) {
+    document.getElementById("toc").style.display = "none";
+    document.getElementById("cont").style.width = "100%"; }
 
 </script>
 
