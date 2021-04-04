@@ -24,6 +24,9 @@ MDFOLS="md-flist.out"
 MDRELFOLS="md-rlist.out"
 MDUNIQFOLS="md-ulist.out"
 
+## Output from external executable suppressed during script execution, output into this file
+EXLOG=".scr-obsidian-html.log"
+
 # Parameters
 ## 1st locSrc Replacement
 if [ $# -ne 0 ]; then
@@ -74,7 +77,7 @@ fi
 # obsidian-html Execution
 ## Collect List of Folders
 for tp in "${TYPE[@]}"; do
-  find $SRC -name $tp -execdir pwd >> $MDFOLS \;
+  find $SRC -name "$tp" -execdir pwd >> $MDFOLS \;
 done
 
 find $SRC -name "*.md" -execdir pwd >> $MDFOLS \;
@@ -112,13 +115,19 @@ while read fn; do
 #    echo "    Processing $SRC/$fn -o $DEST/$fn -t $TEM ."
 #    obsidian-html "$SRC/$fn" -o "$DEST/$fn" -t "$TEM"
     echo "    Processing $SRC/$fn -o $DEST -t $TEM ."
-    ~/.local/bin/oboe "$SRC/$fn" -e -o "$DEST" -t "$TEM"
+    ~/.local/bin/oboe "$SRC/$fn" -e -o "$DEST" -t "$TEM" >> $EXLOG
     # obsidian-html "$SRC/$fn" -o "$DEST" -t "$TEM"
+    if [ $? != 0 ]; then
+      exit 1
+    fi
   else
 #    echo "    Processing $SRC/$fn -o $DEST/$fn ."
 #    obsidian-html "$SRC/$fn" -o "$DEST/$fn"
     echo "    Processing $SRC/$fn -o $DEST ."
-    ~/.local/bin/oboe "$SRC/$fn" -e -o "$DEST"
+    ~/.local/bin/oboe "$SRC/$fn" -e -o "$DEST" >> $EXLOG
     # obsidian-html "$SRC/$fn" -o "$DEST"
+    if [ $? != 0 ]; then
+      exit 1
+    fi
   fi
 done < $MDUNIQFOLS
