@@ -7,7 +7,7 @@ obsidian-html has been migrated to a new package by its auther for broader `.md`
 * Obsidian links to embedded files without respect to the folder where those files are stored. oboe does not copy these external files to the output along with the `.html` output files.
 * Block quotes have excess white space around them, which causes excessive space around the blockquote html, which requires additional space. This is trimmed in `footer.html`.
 * The page title is pulled from the first `<h1>` tag in the output `.html`, as the `{TITLE}` provided by oboe is inconvenient in the header/footer template I'm using.
-* The anchors used in Obsidian are of the form `link#anchor|label`, which should get transformed into `<a href="link#anchor">label</a>`, but instead appears to get transformed into `<a href="link">anchorlabel</a>`. This is fixed in `footer.html`.
+* The anchors used in Obsidian are of the form `link#anchor|label`, which should get transformed into `<a href="link#anchor">label</a>`, but instead appears to get transformed into `<a href="link#anchorlabel">anchor|label</a>`. This is fixed in `footer.html`.
 
 # Installation
 Requires the following:
