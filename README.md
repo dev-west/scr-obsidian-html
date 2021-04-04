@@ -19,7 +19,7 @@ Requires the following:
 Execute in the obsidian-html repo directory:
 > pip install git+https://github.com/kmaasrud/oboe
 
-This installs an executable into `~/.local/bin`. This location is hard-coded in scr-obsidian-html. If you need to put the oboe executable somewhere else, update the 2 locations in the script (lines 115 and 121).
+This installs an executable into `~/.local/bin`. This location is hard-coded in scr-obsidian-html. If you need to put the oboe executable somewhere else, update the 2 locations in the script (search for 'oboe').
 
 # Usage
 Edit the script to change the base obsidian folder, the target HTML folder, and other options.
