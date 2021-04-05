@@ -8,6 +8,11 @@ body {
 a:link { color: lime; }
 a:visited { color: green; }
 
+/* p {
+  margin: 0px;
+  padding: 0px;
+} */
+
 pre {
   border-radius: 5px;
   border-top-color: #333;
@@ -52,6 +57,10 @@ th, td {
   padding: 4px;
 }
 
+.nosel {
+  user-select: none;
+}
+
 .tag {
   color: #88F;
   font-weight: bold;
@@ -60,6 +69,30 @@ th, td {
   padding-right: 5px;
   margin-left: 5px;
   margin-right: 5px;
+  border-radius: 5px;
+}
+
+.tagcard {
+  color: #88F;
+  font-weight: bold;
+  background-color: #228;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 5px;
+  border-radius: 5px;
+}
+
+.tagmini {
+  background-color: #111;
+  padding-left: 10px;
+  padding-right: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  text-alighn: center;
+  float: left;
+  width: 100%;
 }
 
 .fBtn {
@@ -203,4 +236,7 @@ th, td {
     width: 100%;
     padding: 0px;
   }
+/*  .card {
+    text-align: center;
+  } */
 }

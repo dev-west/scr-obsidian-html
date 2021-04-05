@@ -4,11 +4,13 @@
   <head>
     <title>&lt;/&gt;</title>
     <style>
-<?php include("/var/www/html/.md-html/style.css"); ?>
+<?php include("/var/www/html/md-html/style.css"); ?>
     </style>
 
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Pathway+Gothic+One&family=Raleway&family=Noto+Sans&display=swap" rel="stylesheet">
+
+<script src="/md/md-tags.js"></script>
 
   </head>
 <body>
@@ -22,10 +24,12 @@
       <ul>
         <li><a href="/">Home</a></li>
         <li><a href="/md/challenges.html">Challenges</a></li>
+        <li><a href="/md/exploits.html">Exploits</a><li>
         <li><a href="/md/glossary.html">Glossary</a><li>
         <li><a href="/md/mscse.html">MSCSE</a></li>
         <li><a href="/md/projects.html">Projects</a></li>
         <li><a href="/md/resources.html">Resources</a></li>
+        <li><a href="/md/standards.html">Standards</a></li>
         <li><a href="/md/theory.html">Theory</a></li>
         <li><a href="/md/tools.html">Tools</a></li>
         <li><a href="/md/vulnerabilities.html">Vulnerabilities</a></li>
@@ -35,8 +39,11 @@
   </div>
 
   <div class="row">
-    <div id="nav" class="rightcolumn">
-      <div id="toc" class="card"></div>
+    <div id="col">
+      <div id="nav" class="rightcolumn">
+        <div id="toc" class="card"></div>
+        <div id="tags" class="card"></div>
+      </div>
     </div>
-    <div id="cont" class="leftcolumn">
-      <div class="card">
+      <div id="cont" class="leftcolumn">
+        <div class="card">

@@ -74,9 +74,78 @@
     nDiv.appendChild(aDiv);
     par.appendChild(nDiv); }
 
+  // show/hide tag list content
+  let openTagCard = "\u21F1"; // when open, show this character
+  let closedTagCard = "\u21F2"; // when closed, show this character
+
+  function togTagList(tag) {
+    let tagCards = document.getElementById("tags").children;
+    let start = -1;
+    for(let i = 0; i < tagCards.length; i++) {
+      el = tagCards[i];
+      if(el.innerHTML.substr(2) == tag) {
+        start = i;
+        break; } }
+
+    if(start == -1) return;
+
+    let tog = "open";
+    if(el.innerHTML.substr(0,1) == openTagCard) {
+      el.innerHTML = closedTagCard + " " + tag;
+      tog = "close";
+    } else {
+      el.innerHTML = openTagCard + " " + tag;
+    }
+
+    for(let i = start + 1; i < tagCards.length; i++) {
+      el = tagCards[i];
+      if(el.className != "tagmini") return;
+      if(tog == "close") {
+        el.style.display = "none";
+      } else {
+        el.style.display = "block";
+      } } }
+
+  // generate tag list
+  let par = document.getElementById("tags");
+  par.classList.add("nosel");
+  let pageTags = document.querySelectorAll(".tag");
+  if( pageTags.length > 0) {
+    for(let i = 0; i < pageTags.length; i++) {
+      tagData = tags[pageTags[i].innerHTML];
+      let nDiv = document.createElement("div");
+      nDiv.classList.add("tagcard");
+      nDiv.onclick = function () { togTagList(pageTags[i].innerHTML); };
+      nDiv.style.cursor = "pointer";
+      let nDivText = document.createTextNode(closedTagCard + " " + pageTags[i].innerHTML);
+      nDiv.appendChild(nDivText);
+      par.appendChild(nDiv);
+      for(let j = 0; j < tagData.length; j++) {
+        let reg = /[ _]+/g
+        let label = tagData[j].substr(0, tagData[j].length-3);
+        let fn = label.toLowerCase().replace(reg, '-');
+        let nDiv = document.createElement("div");
+        nDiv.classList.add("tagmini");
+        // nDiv.style.width = "80%";
+        nDiv.style.display = "none";
+        nDiv.style.margin = "auto";
+        let aDiv = document.createElement("a");
+        aDiv.href = fn+".html";
+        let aDivText = document.createTextNode(label);
+        aDiv.appendChild(aDivText);
+        nDiv.appendChild(aDiv);
+        par.appendChild(nDiv); } }
+  } else {
+    par.style.display = 'none'; }
+
   if(h.length <= 2) {
     document.getElementById("toc").style.display = "none";
-    document.getElementById("cont").style.width = "100%"; }
+    document.getElementById("cont").style.float = "top";
+    document.getElementById("tags").style.float = "top";
+    if(pageTags.length == 0) {
+      document.getElementById("cont").style.width = "100%";
+    }
+  }
 
 </script>
 
