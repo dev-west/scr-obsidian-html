@@ -9,6 +9,21 @@ obsidian-html has been migrated to a new package by its author for broader `.md`
 * The page title is pulled from the first `<h1>` tag in the output `.html`, as the `{TITLE}` provided by oboe is inconvenient in the header/footer template I'm using.
 * The anchors used in Obsidian are of the form `link#anchor|label`, which should get transformed into `<a href="link#anchor">label</a>`, but instead appears to get transformed into `<a href="link#anchorlabel">anchor|label</a>`. This is fixed in `footer.html`.
 
+### Unresolved issues in using oboe
+* Tag formatting inside of code blocks and inline code segments is being interpretted, spans are added inside of code blocks.
+```
+<pre><code class="plaintext lang-plaintext language-plaintext">.global main
+
+main:
+    /* set initial variable */
+    mov     r0, <span class="tag">2</span>
+```
+* Excessive `<br />` around unordered list items beyond the first list level with inline code segments causing extra whitespace.
+```
+<ul><br />
+<li><code>ldr = Load Word</code><br /><br />
+```
+
 # Installation
 Requires the following:
 * https://github.com/kmaasrud/oboe
