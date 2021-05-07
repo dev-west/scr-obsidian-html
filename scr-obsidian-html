@@ -107,7 +107,7 @@ echo Found $(wc -l < $MDUNIQFOLS) unique folders.
 
 ## Generate Tag Link File
 while read fn; do
-  grep -iE "[ \n\r\t]#[a-zA-Z_-]+[ \n\r\t]" "$fn" | awk -F "#" '{print $2}' | awk '{print $1}' >> $MDTAGS
+  grep -iE "[ \n\r\t]#[a-zA-Z][a-zA-Z0-9_-]*[ \n\r\t]" "$fn" | awk -F "#" '{print $2}' | awk '{print $1}' >> $MDTAGS
 done < <(find "$SRC" -type f -name "*.md")
 echo "Found $(wc -l < $MDTAGS) tags."
 
@@ -120,7 +120,7 @@ while read tag; do
   locTagFoundCount=0
   locFirstFn=""
   while read fn; do
-    locFound=$(grep "$tag" "$fn" | wc -l)
+    locFound=$(grep "#$tag" "$fn" | wc -l)
     if [ $locFound != 0 ]; then
       locTagFoundCount=$(expr $locTagFoundCount + 1)
       if [ -z $locFirstTag ]; then
@@ -128,7 +128,7 @@ while read tag; do
         locFirstFn="true"
         echo "var tags = {" >> $TAGS
         bfn=$(basename "$fn")
-        echo -n "    '$tag' : [ '$bfn)'" >> $TAGS
+        echo -n "    '$tag' : [ '$bfn'" >> $TAGS
       else
         if [ -z $locFirstFn ]; then
           locFirstFn="true"
